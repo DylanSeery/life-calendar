@@ -44,7 +44,7 @@
         margin: 1px;
     }
     .quote {
-        max-width: 800px;
+        max-width: 700px;
     }
     .spinner {
         display: none;
@@ -58,7 +58,7 @@
             max-width: 350px;
         }
         .quote {
-            max-width: 350px;
+            max-width: 300px;
         }
         .week {
             width: 2.5px;
@@ -152,11 +152,7 @@
             spinner.style.display = "none";
             document.querySelector('.dob').innerHTML = `You've lived ${((100 * weeks) / 4160).toFixed(2)}% of a life to 80 years old.`;
             document.querySelector('.quote').innerHTML = `
-            <figure>
-                <blockquote>
-                    <p>${results.quote}</p><cite>-${results.author}</cite>
-                </blockquote>
-            </figure>
+            <p>${results.quote}</p><cite>-${results.author}</cite>
             `;
         });
     });
