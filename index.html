@@ -123,6 +123,12 @@
     }
 
     const dateOfBirth = document.querySelector('.dateOfBirth');
+    // validation
+    const dateVal = new Date();
+    dateOfBirth.max = dateVal.toLocaleDateString('en-ca');
+    dateVal.setFullYear(dateVal.getFullYear() - 80);
+    dateOfBirth.min = dateVal.toLocaleDateString('en-ca');
+
     const spinner = document.querySelector('.spinner');
 
     dateOfBirth.addEventListener('blur', (event) => {
@@ -140,7 +146,7 @@
         // Fill out weeks
         const weeksHtml = document.querySelectorAll('.week');
         for(let i=0; i<weeks; i++) {
-           weeksHtml[i].style.backgroundColor = "black";
+            weeksHtml[i].style.backgroundColor = "black";
         }
         
         // dateOfBirth.style.display = "none";
