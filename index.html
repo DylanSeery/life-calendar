@@ -144,17 +144,17 @@
         }
         
         dateOfBirth.style.display = "none";
-        spinner.style.display = "block";
-        fetch('https://quotes.rest/qod?category=inspire&language=en')
-        .then(response => response.json())
-        .then(data => {
-            const results = data.contents.quotes[0];
-            spinner.style.display = "none";
-            document.querySelector('.dob').innerHTML = `You've lived ${((100 * weeks) / 4160).toFixed(2)}% of a life to 80 years old.`;
-            document.querySelector('.quote').innerHTML = `
-            <p>${results.quote}</p><cite>-${results.author}</cite>
-            `;
-        });
+        // spinner.style.display = "block";
+        document.querySelector('.dob').innerHTML = `You've lived ${((100 * weeks) / 4160).toFixed(2)}% of a life to 80 years old.`;
+        // fetch('https://quotes.rest/qod?category=inspire&language=en')
+        // .then(response => response.json())
+        // .then(data => {
+        //     const results = data.contents.quotes[0];
+        //     spinner.style.display = "none";
+        //     document.querySelector('.quote').innerHTML = `
+        //     <p>${results.quote}</p><cite>-${results.author}</cite>
+        //     `;
+        // });
     });
 </script>
 
