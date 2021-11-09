@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏰</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mohave:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Life Calendar</title>
+</head>
+<style>
+    body {
+        margin: 1rem 2rem 1rem 2rem;
+        font-family: 'Mohave', sans-serif;
+    }
+    .title {
+        font-size: 3.5rem;
+        margin: 0;
+    }
+    .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .container {
+        display: grid;
+        grid-template-columns: repeat(52, 1fr);
+        max-width: 800px;
+        margin-top: 1rem;
+    }
+    .week {
+        width: 10px;
+        height: 10px;
+        border: 1px solid black;
+        margin: 1px;
+    }
+</style>
+<body>
+
+    <div class="header">
+        <h1 class="title">Life Calendar</h1>
+        <p class="dob">Enter your DOB:</p>
+        <input type="date" class="dateOfBirth">
+        <div class="quote"></div>
+    </div>
+    
+    <div class="content">
+        <div class="container">
+        </div>
+    </div>
+
+</body>
+
+<script>
+
+    for (let i=0; i<4160; i++) {
+        document.querySelector('.container').appendChild(document.createElement('div')).className="week";
+    }
+
+    const dateOfBirth = document.querySelector('.dateOfBirth');
+
+    dateOfBirth.addEventListener('blur', (event) => {
+        const yearOfBirth = moment(event.target.value);
+        const now = moment();
+
+        // Calculate the difference
+        const difference = now.diff(yearOfBirth) 
+        const duration = moment.duration(difference);
+        const months = duration.months();
+        const years = duration.years();
+        const days = duration.days();
+        const weeks = (years * 52) + (months * 4);
+
+        // Fill out weeks
+        const weeksHtml = document.querySelectorAll('.week');
+        for(let i=0; i<weeks; i++) {
+           weeksHtml[i].style.backgroundColor = "black";
+        }
+        
+        dateOfBirth.style.display = "none";
+        fetch('https://quotes.rest/qod?category=inspire&language=en')
+        .then(response => response.json())
+        .then(data => {
+            const results = data.contents.quotes[0];
+
+            document.querySelector('.dob').innerHTML = `You've lived ${((100 * weeks) / 4160).toFixed(2)}% of a life to 80 years old.`;
+            document.querySelector('.quote').innerHTML = `
+            <figure>
+                <blockquote>
+                    <p>${results.quote}</p><cite>-${results.author}</cite>
+                </blockquote>
+            </figure>
+            `;
+        });
+    });
+</script>
+
+</html>
